@@ -3,7 +3,7 @@
 <mapper namespace="temp2DAO">
 
 
-	<resultMap id="temp" type="egovframework.let.temp.service.TempVO">
+	<resultMap id="temp" type="egovframework.let.temp2.service.Temp2VO">
 		<result property="tempId" column="TEMP_ID"/>
 		<result property="tempVal" column="TEMP_VAL"/>
 	</resultMap>
@@ -15,6 +15,7 @@
 		  , TEMP_VAL
 		FROM lettemp2
 		WHERE TEMP_ID = #{tempId}
+		
 	</select>
 	
 	<select id="temp2DAO.selectTempList" resultType="egovMap">
@@ -23,6 +24,7 @@
 		  , TEMP_VAL
 		FROM lettemp2
 		ORDER BY TEMP_ID DESC
+		LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
 	</select>
 	
 	<select id="temp2DAO.selectTempListCnt" resultType="java.lang.Integer">
@@ -31,7 +33,7 @@
 		FROM lettemp2
 	</select>
 	
-	<insert id="temp2DAO.insertTemp" parameterType="egovframework.let.temp.service.TempVO">
+	<insert id="temp2DAO.insertTemp" parameterType="egovframework.let.temp2.service.Temp2VO">
 		INSERT INTO lettemp2 (
 			TEMP_ID
 			, TEMP_VAL
@@ -41,13 +43,13 @@
 		)
 	</insert>
 	
-	<update id="temp2DAO.updateTemp" parameterType="egovframework.let.temp.service.TempVO">
+	<update id="temp2DAO.updateTemp" parameterType="egovframework.let.temp2.service.Temp2VO">
 		UPDATE lettemp2 SET
 			TEMP_VAL = #{tempVal}
 		WHERE TEMP_ID = #{tempId}
 	</update>
 	
-	<delete id="temp2DAO.deleteTemp" parameterType="egovframework.let.temp.service.TempVO">
+	<delete id="temp2DAO.deleteTemp" parameterType="egovframework.let.temp2.service.Temp2VO">
 		DELETE FROM lettemp2
 		WHERE TEMP_ID = #{tempId}
 	</delete>
