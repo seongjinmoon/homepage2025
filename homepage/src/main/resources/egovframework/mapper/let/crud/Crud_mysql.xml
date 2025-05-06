@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="crudDAO">
+
+	<resultMap id="crud" type="egovframework.let.crud.service.CrudVO">
+		<result property="crudId" column="CRUD_ID"/>
+		<result property="crudCtgry" column="CRUD_CTGRY"/>
+		<result property="crudSj" column="CRUD_SJ"/>
+		<result property="crudCn" column="CRUD_CN"/>
+		<result property="userNm" column="USER_NM"/>
+		<result property="frstRegistPnttm" column="FRST_REGIST_PNTTM"/>
+	</resultMap>
+
+	<select id="crudDAO.selectCrud" resultMap="crud">
+		SELECT
+		  CRUD_ID
+		  , CRUD_CTGRY
+		  , CRUD_SJ
+		  , CRUD_CN
+		  , USER_NM
+		  , FRST_REGIST_PNTTM
+		FROM LETCRUD
+		WHERE CRUD_ID = #{crudId}
+	</select>
+	
+	<select id="crudDAO.selectCrudList" resultType="egovMap">
+		SELECT
+		  CRUD_ID
+		  , CRUD_CTGRY
+		  , CRUD_SJ
+		  , USER_NM
+		  , DATE_FORMAT(FRST_REGIST_PNTTM, '%Y-%m-%d') AS FRST_REGIST_PNTTM
+		FROM LETCRUD
+		ORDER BY CRUD_ID DESC
+		LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
+	
+	<select id="crudDAO.selectCrudListCnt" resultType="java.lang.Integer">
+		SELECT
+		  COUNT(*) CNT
+		FROM LETCRUD
+	</select>
+	
+	<insert id="crudDAO.insertCrud" parameterType="egovframework.let.crud.service.CrudVO">
+		INSERT INTO LETCRUD (
+			CRUD_ID
+			, CRUD_CTGRY
+		    , CRUD_SJ
+		    , CRUD_CN
+		    , USER_NM
+		    , FRST_REGIST_PNTTM
+		) VALUES (
+			#{crudId}
+			, #{crudCtgry}
+			, #{crudSj}
+			, #{crudCn}
+			, #{userNm}
+			, NOW()
+		)
+	</insert>
+	
+	<update id="crudDAO.updateCrud" parameterType="egovframework.let.crud.service.CrudVO">
+		UPDATE LETCRUD SET
+			, CRUD_CTGRY = #{crudCtgry}
+			, CRUD_SJ = #{crudSj}
+		    , CRUD_CN = #{crudCn}
+		    , USER_NM = #{userNm}
+		WHERE CRUD_ID = #{crudId}
+	</update>
+	
+	<delete id="crudDAO.deleteCrud" parameterType="egovframework.let.crud.service.CrudVO">
+		DELETE FROM LETCRUD
+		WHERE CRUD_ID = #{crudId}
+	</delete>
+	
+</mapper>
