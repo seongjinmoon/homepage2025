@@ -38,7 +38,7 @@
 				AND A.NOTICE_AT = 'Y'
 			</when>
 			<otherwise>
-				<if test='searchCondition != null and searchCondition != ""'>
+				<if test='searchCondition != null and searchCondition != "" and searchKeyword != null and searchKeyword != ""'>
 					<choose>
 						<when test='searchCondition == "0"'>
 							AND A.BOARD_SJ LIKE CONCAT('%', #{searchKeyword}, '%')
@@ -70,7 +70,7 @@
 				AND A.NOTICE_AT = 'Y'
 			</when>
 			<otherwise>
-				<if test='searchCondition != null and searchCondition != ""'>
+				<if test='searchCondition != null and searchCondition != "" and searchKeyword != null and searchKeyword != ""'>
 					<choose>
 						<when test='searchCondition == "0"'>
 							AND A.BOARD_SJ LIKE CONCAT('%', #{searchKeyword}, '%')
@@ -141,7 +141,7 @@
 					AND A.NOTICE_AT = 'Y'
 				</when>
 				<otherwise>
-					<if test='searchCondition != null and searchCondition != ""'>
+					<if test='searchCondition != null and searchCondition != "" and searchKeyword != null and searchKeyword != ""'>
 						<choose>
 							<when test='searchCondition == "0"'>
 								AND A.BOARD_SJ LIKE CONCAT('%', #{searchKeyword}, '%')
