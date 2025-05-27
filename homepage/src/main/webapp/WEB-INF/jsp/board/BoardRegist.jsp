@@ -10,6 +10,7 @@
 </c:import>
 
 <%-- 게시판 타입 --%>
+<%-- 
 <c:set var="boardType">
 <c:choose>
 	<c:when test="${not empty searchVO.boardType}">
@@ -20,10 +21,10 @@
 	</c:otherwise>
 </c:choose>
 </c:set>
-
+ --%>
 <%-- 기본 URL --%>
 <c:url var="_BASE_PARAM" value="">
-	<c:param name="boardType" value="${boardType}" />
+	<%-- <c:param name="boardType" value="${boardType}" /> --%>
   	<c:if test="${not empty searchVO.searchCondition}"><c:param name="searchCondition" value="${searchVO.searchCondition}" /></c:if>
   	<c:if test="${not empty searchVO.searchKeyword}"><c:param name="searchKeyword" value="${searchVO.searchKeyword}" /></c:if>
 </c:url>
@@ -46,7 +47,7 @@
 			<input type="hidden" name="returnUrl" value="/board/boardRegist.do"/>
 			
 			<%-- 게시판 타입 --%>
-			<input type="hidden" name="boardType" value="${searchVO.boardType}"/>
+			<%-- <input type="hidden" name="boardType" value="${searchVO.boardType}"/> --%>
 			
 			<table class="chart2">
 		        <caption>게시글 작성</caption>
@@ -104,7 +105,7 @@
 			                </td>
 			            </tr>
 		            </c:if>
-		            
+		            <%-- 
 		            <tr>
 		                <th scope="row">파일첨부</th>
 		                <td>
@@ -113,7 +114,7 @@
 		                    <input type="file" name="file_2"/>
 		                </td>
 		            </tr>
-		            
+		             --%>
 		        </tbody>
 		    </table>
 			<div class="btn-cont ar">
@@ -163,7 +164,7 @@ function regist(){
 	}
 }
 </script>
-
+<%--
 <script src="https://cdn.tiny.cloud/1/xg9uuf6dha0abv164r3ngodmfu0p9vzo66mbdo8vtuiooqr9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
 $(function(){
@@ -240,6 +241,6 @@ $(function(){
     });
 });
 </script>
-
+--%>
  
 <c:import url="/template/footer.do" charEncoding="utf-8"/>

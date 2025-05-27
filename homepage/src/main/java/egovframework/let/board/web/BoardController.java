@@ -83,8 +83,9 @@ public class BoardController {
 	public String select(@ModelAttribute("searchVO") BoardVO searchVO, HttpServletRequest request, ModelMap model) throws Exception{
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		model.addAttribute("USER_INFO", user);
-		/*
+		
 		//조회수 업데이트
+		/*
 		boardService.updateViewCnt(searchVO);
 		String a = null;
 		if(a.equals("aa")) a = "";
