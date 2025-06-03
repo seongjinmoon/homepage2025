@@ -265,4 +265,36 @@ public class EgovFileMngController {
 		}
 		return returnVal;
 	}
+	
+	//첨부파일목록조회
+	@RequestMapping("/cmm/fms/selectFileInfo.do")
+    public String selectFileInfo(@ModelAttribute("searchVO") FileVO fileVO, HttpServletRequest request, @RequestParam Map<String, Object> commandMap, ModelMap model) throws Exception {
+    	
+    	String param_atchFileId = (String) commandMap.get("param_atchFileId");
+		fileVO.setAtchFileId(param_atchFileId);
+		List<FileVO> result = fileService.selectFileInfs(fileVO);
+
+		model.addAttribute("fileList", result);
+		model.addAttribute("updateFlag", "N");
+		model.addAttribute("fileListCnt", result.size());
+		model.addAttribute("atchFileId", param_atchFileId);
+
+		return "cmm/fms/EgovFileList";
+    }
+	
+	//첨부파일수정
+	@RequestMapping("/cmm/fms/selectFileInfoForUpdate.do")
+    public String selectFileInfoForUpdate(@ModelAttribute("searchVO") FileVO fileVO, @RequestParam Map<String, Object> commandMap, HttpServletRequest request, ModelMap model) throws Exception {
+
+    	String param_atchFileId = (String) commandMap.get("param_atchFileId");
+    	fileVO.setAtchFileId(param_atchFileId);
+		List<FileVO> result = fileService.selectFileInfs(fileVO);
+		
+		model.addAttribute("fileList", result);
+		model.addAttribute("updateFlag", "Y");
+		model.addAttribute("fileListCnt", result.size());
+		model.addAttribute("atchFileId", param_atchFileId);
+	
+		return "cmm/fms/EgovFileList";
+    }
 }

@@ -41,10 +41,10 @@
 
 <div class="container">
 	<div id="contents">
-		<form action="${actionUrl}" method="post" id="frm" name="frm" onsubmit="return regist()"> <!-- enctype="multipart/form-data" --> 
+		<form action="${actionUrl}" method="post" id="frm" name="frm" onsubmit="return regist()" enctype="multipart/form-data"> 
 			<input type="hidden" name="boardId" value="${result.boardId}"/>
 			<%-- 첨부파일 삭제 때문에 returnUrl존재 --%>
-			<!-- <input type="hidden" name="returnUrl" value="/board/boardRegist.do"/> -->
+			<input type="hidden" name="returnUrl" value="/board/boardRegist.do"/>
 			
 			<%-- 게시판 타입 --%>
 			<%-- <input type="hidden" name="boardType" value="${searchVO.boardType}"/> --%>
@@ -94,19 +94,17 @@
 		                    <textarea id="boardCn" name="boardCn" rows="15" title="내용입력"><c:out value="${result.boardCn}"/></textarea>
 		                </td>
 		            </tr>
-		            <%-- 
+		            
 		            <c:if test="${not empty result.atchFileId}">
 			            <tr>
 			                <th scope="row">기존<br/>첨부파일목록</th>
 			                <td>
-			                	<c:import url="/cmm/fms/selectFileInfsForUpdate.do" charEncoding="utf-8">
+			                	<c:import url="/cmm/fms/selectFileInfoForUpdate.do" charEncoding="utf-8">
 				                    <c:param name="param_atchFileId" value="${result.atchFileId}" />
 				                </c:import>    
 			                </td>
 			            </tr>
 		            </c:if>
-		             --%>
-		            <%-- 
 		            <tr>
 		                <th scope="row">파일첨부</th>
 		                <td>
@@ -115,7 +113,7 @@
 		                    <input type="file" name="file_2"/>
 		                </td>
 		            </tr>
-		             --%>
+		            
 		        </tbody>
 		    </table>
 			<div class="btn-cont ar">
@@ -165,7 +163,7 @@ function regist(){
 	}
 }
 </script>
-<!-- 
+
 <script src="https://cdn.tiny.cloud/1/xg9uuf6dha0abv164r3ngodmfu0p9vzo66mbdo8vtuiooqr9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
 $(function(){
@@ -242,6 +240,6 @@ $(function(){
     });
 });
 </script>
- -->
+ 
  
 <c:import url="/template/footer.do" charEncoding="utf-8"/>

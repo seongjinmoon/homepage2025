@@ -148,14 +148,16 @@ public class EgovFileDownloadController {
 
 			// 암호화된 atchFileId 를 복호화. (2022.12.06 추가) - 파일아이디가 유추 불가능하도록 조치
 			String param_atchFileId = (String) commandMap.get("atchFileId");
+			/*
 	    	param_atchFileId = param_atchFileId.replaceAll(" ", "+");
 			byte[] decodedBytes = Base64.getDecoder().decode(param_atchFileId);
 			String decodedString = new String(cryptoService.decrypt(decodedBytes, ALGORITHM_KEY));
 			String decodedFileId = StringUtils.substringAfter(decodedString, "|");
+			*/
 			String fileSn = (String) commandMap.get("fileSn");
 
 			FileVO fileVO = new FileVO();
-			fileVO.setAtchFileId(decodedFileId);
+			fileVO.setAtchFileId(param_atchFileId);
 			fileVO.setFileSn(fileSn);
 			FileVO fvo = fileService.selectFileInf(fileVO);
 

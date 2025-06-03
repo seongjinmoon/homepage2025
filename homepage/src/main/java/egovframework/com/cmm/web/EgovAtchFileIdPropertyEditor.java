@@ -30,6 +30,7 @@ public class EgovAtchFileIdPropertyEditor extends PropertyEditorSupport {
 		
 		public void setAsText(String text) throws IllegalArgumentException {
 			LOGGER.debug("===>>> setText : "+text);
+			/*
 			String decryptText = "";
 			if (text != null && !"".equals(text) ) {
 				try {
@@ -39,7 +40,8 @@ public class EgovAtchFileIdPropertyEditor extends PropertyEditorSupport {
 					decryptText = "FILE_ID_DECRIPT_EXCEPTION_01";
 				}
 			}
-			this.setValue(decryptText);
+			*/
+			this.setValue(text);
 	
 		}
 	

@@ -67,6 +67,7 @@ public class EgovFileMngUtil {
      * @return
      * @throws Exception
      */
+    //files = 파일, KeyStr = 저장 될 파일 prefix용, fileKeyParam = 기존 파일 수, atchFileId = 기존파일pk값, storePath = 저장경로
     public List<FileVO> parseFileInf(Map<String, MultipartFile> files, String KeyStr, int fileKeyParam, String atchFileId, String storePath) throws Exception {
 	int fileKey = fileKeyParam;
 

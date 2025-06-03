@@ -46,14 +46,16 @@
 					<dt>조회수</dt>
 					<dd><c:out value="${result.inqireCo}" /></dd>
 				</dl>
+				
 				<dl class="tit_view">
 					<dt>첨부파일목록</dt>
 					<dd>
-						<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+						<c:import url="/cmm/fms/selectFileInfo.do" charEncoding="utf-8">
 		                    <c:param name="param_atchFileId" value="${result.atchFileId}" />
 		                </c:import>
 					</dd>
 				</dl>
+				
 				<div class="view_cont">
 					<c:out value="${result.boardCn}" escapeXml="false" />
 				</div>

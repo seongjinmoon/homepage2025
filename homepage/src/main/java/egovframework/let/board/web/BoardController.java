@@ -31,13 +31,13 @@ public class BoardController {
 	
 	@Resource(name = "boardService")
     private BoardService boardService;
-	/*
+	
 	@Resource(name = "EgovFileMngService")
     private EgovFileMngService fileMngService;
 
 	@Resource(name = "EgovFileMngUtil")
     private EgovFileMngUtil fileUtil;
-    
+    /*
     @Resource(name = "propertiesService")
     protected EgovPropertyService propertyService;
     */
@@ -132,7 +132,7 @@ public class BoardController {
 	
 	//게시물 등록하기
 	@RequestMapping(value = "/board/insert.do")
-	public String insert(/*final MultipartHttpServletRequest multiRequest, */@ModelAttribute("searchVO") BoardVO searchVO, HttpServletRequest request, ModelMap model) throws Exception{
+	public String insert(final MultipartHttpServletRequest multiRequest, @ModelAttribute("searchVO") BoardVO searchVO, HttpServletRequest request, ModelMap model) throws Exception{
 		//이중 서브밋 방지 체크
 		if(request.getSession().getAttribute("sessionBoard") != null){
 			return "forward:/board/selectList.do";
@@ -143,7 +143,7 @@ public class BoardController {
 	    	model.addAttribute("message", "로그인 후 사용가능합니다.");
 	    	return "forward:/board/selectList.do";
 		}
-	    /*
+	    
 		List<FileVO> result = null;
 	    String atchFileId = "";
 	    
@@ -153,7 +153,7 @@ public class BoardController {
 			atchFileId = fileMngService.insertFileInfs(result);
 	    }
 	    searchVO.setAtchFileId(atchFileId);
-		*/
+		
 		//사용자IP가져오기
 	    searchVO.setCreatIp(request.getRemoteAddr());
 	    searchVO.setUserId(user.getId());
@@ -167,7 +167,7 @@ public class BoardController {
 	
 	//게시물 수정하기
 	@RequestMapping(value = "/board/update.do")
-	public String update(/*final MultipartHttpServletRequest multiRequest, */@ModelAttribute("searchVO") BoardVO searchVO, HttpServletRequest request, ModelMap model) throws Exception{
+	public String update(final MultipartHttpServletRequest multiRequest, @ModelAttribute("searchVO") BoardVO searchVO, HttpServletRequest request, ModelMap model) throws Exception{
 		//이중 서브밋 방지
 		if(request.getSession().getAttribute("sessionBoard") != null){
 			return "forward:/board/selectList.do";
@@ -180,7 +180,7 @@ public class BoardController {
 		}else if("admin".equals(user.getId())){
 			searchVO.setMngAt("Y");
 		}
-	    /*
+	    
 		String atchFileId = searchVO.getAtchFileId();
 		final Map<String, MultipartFile> files = multiRequest.getFileMap();
 	    if(!files.isEmpty()) {
@@ -196,7 +196,7 @@ public class BoardController {
 			    fileMngService.updateFileInfs(_result);
 			}
 	    }
-	    */
+	    
 	    searchVO.setUserId(user.getId());
 	    
 		boardService.updateBoard(searchVO);
