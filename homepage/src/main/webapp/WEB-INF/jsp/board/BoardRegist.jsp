@@ -10,7 +10,6 @@
 </c:import>
 
 <%-- 게시판 타입 --%>
-<%-- 
 <c:set var="boardType">
 <c:choose>
 	<c:when test="${not empty searchVO.boardType}">
@@ -21,10 +20,9 @@
 	</c:otherwise>
 </c:choose>
 </c:set>
- --%>
 <%-- 기본 URL --%>
 <c:url var="_BASE_PARAM" value="">
-	<%-- <c:param name="boardType" value="${boardType}" /> --%>
+	<c:param name="boardType" value="${boardType}" />
   	<c:if test="${not empty searchVO.searchCondition}"><c:param name="searchCondition" value="${searchVO.searchCondition}" /></c:if>
   	<c:if test="${not empty searchVO.searchKeyword}"><c:param name="searchKeyword" value="${searchVO.searchKeyword}" /></c:if>
 </c:url>
@@ -47,7 +45,7 @@
 			<input type="hidden" name="returnUrl" value="/board/boardRegist.do"/>
 			
 			<%-- 게시판 타입 --%>
-			<%-- <input type="hidden" name="boardType" value="${searchVO.boardType}"/> --%>
+			<input type="hidden" name="boardType" value="${searchVO.boardType}"/>
 			
 			<table class="chart2">
 		        <caption>게시글 작성</caption>

@@ -53,7 +53,7 @@ public class BoardVO extends ComDefaultVO implements Serializable {
 	private String mngAt;
 	
 	//게시물타입
-	//private String boardType;
+	private String boardType;
 	
 	public String getBoardId() {
 		return boardId;
@@ -174,7 +174,7 @@ public class BoardVO extends ComDefaultVO implements Serializable {
 	public void setMngAt(String mngAt) {
 		this.mngAt = mngAt;
 	}
-	/*
+	
 	public String getBoardType() {
 		return boardType;
 	}
@@ -182,5 +182,5 @@ public class BoardVO extends ComDefaultVO implements Serializable {
 	public void setBoardType(String boardType) {
 		this.boardType = boardType;
 	}
-	*/
+	
 }

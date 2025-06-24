@@ -37,10 +37,10 @@ public class BoardController {
 
 	@Resource(name = "EgovFileMngUtil")
     private EgovFileMngUtil fileUtil;
-    /*
+    
     @Resource(name = "propertiesService")
     protected EgovPropertyService propertyService;
-    */
+    
 	//게시물 목록 가져오기
 	@RequestMapping(value = "/board/selectList.do")
 	public String selectList(@ModelAttribute("searchVO") BoardVO searchVO,  HttpServletRequest request, ModelMap model) throws Exception{
@@ -48,13 +48,13 @@ public class BoardController {
 		searchVO.setNoticeAt("Y");
 		List<EgovMap> noticeResultList = boardService.selectBoardList(searchVO);
 		model.addAttribute("noticeResultList", noticeResultList);
-		/*
+		
 		//이미지게시판일 경우
 		if("IMAGE".equals(searchVO.getBoardType())) {
 			searchVO.setPageUnit(propertyService.getInt("imagePageUnit"));
 			searchVO.setPageSize(propertyService.getInt("imagePageSize"));
 		}
-		*/
+		
 		PaginationInfo paginationInfo = new PaginationInfo();
 
 		paginationInfo.setCurrentPageNo(searchVO.getPageIndex());

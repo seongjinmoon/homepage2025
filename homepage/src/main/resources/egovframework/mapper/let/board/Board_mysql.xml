@@ -6,7 +6,7 @@
 		<result property="boardId" column="BOARD_ID"/>
 		<result property="boardSj" column="BOARD_SJ"/>
 		<result property="boardCn" column="BOARD_CN"/>
-		<!-- <result property="boardType" column="BOARD_TYPE"/> -->
+		<result property="boardType" column="BOARD_TYPE"/>
 		<result property="inqireCo" column="INQIRE_CO"/>
 		<result property="creatIp" column="CREAT_IP"/>
 		<result property="noticeAt" column="NOTICE_AT"/>
@@ -90,7 +90,7 @@
 	 
     <select id="boardDAO.selectBoardList" resultType="egovMap">
 		SELECT
-			  A.BOARD_ID       
+			  A.BOARD_ID
 			, A.BOARD_SJ           
 			, A.BOARD_CN           
 			, A.INQIRE_CO          
@@ -101,7 +101,6 @@
 			, A.ATCH_FILE_ID       
 			, A.FRST_REGIST_PNTTM  
 			, A.FRST_REGISTER_ID
-			<!-- 
 			, (SELECT 
 					CONCAT(X.STRE_FILE_NM, '.', X.FILE_EXTSN) 
 				FROM LETTNFILEDETAIL X 
@@ -110,7 +109,6 @@
 				ORDER BY FILE_SN
 				LIMIT 1
 			) AS ATCH_FILE_NM
-			 -->
 		FROM BOARD A
 		<include refid="selectBoardListWhere"></include>
 		ORDER BY A.FRST_REGIST_PNTTM DESC
@@ -130,7 +128,6 @@
 	<sql id="selectBoardListWhere">
 		<where>
 			A.USE_AT = 'Y'
-			<!-- 
 			<choose>
 				<when test='boardType == "IMAGE"'>
 					AND A.BOARD_TYPE = 'IMAGE'
@@ -139,7 +136,6 @@
 					AND A.BOARD_TYPE = 'NORMAL'
 				</otherwise>
 			</choose>
-			 -->
 			<choose>
 				<when test='noticeAt == "Y"'>
 					AND A.NOTICE_AT = 'Y'
@@ -169,7 +165,7 @@
 			  BOARD_ID       
 			, BOARD_SJ
 			, BOARD_CN
-			<!-- , BOARD_TYPE -->           
+			, BOARD_TYPE
 			, INQIRE_CO          
 			, CREAT_IP           
 			, NOTICE_AT          
@@ -188,7 +184,7 @@
 			BOARD_ID       
 			, BOARD_SJ           
 			, BOARD_CN   
-			<!-- , BOARD_TYPE -->        
+			, BOARD_TYPE        
 			, INQIRE_CO          
 			, CREAT_IP           
 			, NOTICE_AT          
@@ -203,7 +199,7 @@
 			#{boardId}
 			, #{boardSj}
 			, #{boardCn}
-			<!-- , IFNULL(NULLIF(#{boardType},''),'NORMAL') -->
+			, IFNULL(NULLIF(#{boardType},''),'NORMAL')
 			, 0
 			, #{creatIp}
 			, #{noticeAt}

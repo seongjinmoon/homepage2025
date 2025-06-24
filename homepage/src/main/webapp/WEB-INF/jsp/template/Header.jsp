@@ -47,7 +47,7 @@
 						<c:when test="${empty USER_INFO.id}">
 							<li><a href="/uat/uia/egovLoginUsr.do">로그인</a></li>
 							<!-- <li><a href="/login/login.do">로그인</a></li> -->
-							<!-- <li><a href="/join/siteUseAgree.do">회원가입</a></li> -->
+							<li><a href="/join/siteUseAgree.do">회원가입</a></li>
 						</c:when>
 						<c:otherwise>
 							<li><strong><c:out value="${USER_INFO.name}"/></strong>님 환영합니다</li>
@@ -65,10 +65,11 @@
 	        		<li>
 						<a href="/board/selectList.do">게시판</a>	
 					</li>
-					<%-- 
+					
 					<li>
 						<a href="/board/selectList.do?boardType=IMAGE">이미지 게시판</a>	
 					</li>
+					<%-- 
 					<li>
 						<a href="/rsv/selectList.do">예약</a>	
 					</li>
