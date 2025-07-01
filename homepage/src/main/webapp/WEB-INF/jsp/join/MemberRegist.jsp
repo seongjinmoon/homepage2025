@@ -105,7 +105,7 @@ $(document).ready(function(){
 				dataType : "json",
 				success : function(data){
 					if(data.successYn == "Y"){
-						alert("사용가능한 ID입니다.");
+						alert(data.message);
 						$("#idCheckAt").val("Y");
 					}else{
 						alert(data.message);
