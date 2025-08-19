@@ -45,14 +45,12 @@
 	                <li><a href="/">HOME</a></li>
 	                <c:choose>
 						<c:when test="${empty USER_INFO.id}">
-							<li><a href="/uat/uia/egovLoginUsr.do">로그인</a></li>
-							<!-- <li><a href="/login/login.do">로그인</a></li> -->
+							<li><a href="/login/login.do">로그인</a></li>
 							<li><a href="/join/siteUseAgree.do">회원가입</a></li>
 						</c:when>
 						<c:otherwise>
 							<li><strong><c:out value="${USER_INFO.name}"/></strong>님 환영합니다</li>
-							<!-- <li><a href="/login/actionLogout.do">로그아웃</a></li>	 -->
-							<li><a href="/uat/uia/actionLogout.do">로그아웃</a></li>
+							<li><a href="/login/actionLogout.do">로그아웃</a></li>	
 						</c:otherwise>
 					</c:choose>
 	            </ul>

@@ -2702,6 +2702,7 @@ ul.section2 li + li {
 }
 
 /* tit_icon_style */
+/*
 .icon1 {
 	position:relative;
 	margin-top:40px;
@@ -2726,7 +2727,7 @@ link + .icon1,
 input[type="hidden"] + .icon1 {
 	margin-top:0;
 }
-
+*/
 .icon1_2 {
 	position:relative;
 	display:block;
@@ -2920,7 +2921,7 @@ h5.icon3 {
 #schedule .cal_type li{float:left;height:27px;}
 #schedule .cal_type li a, .cal_type li a span{background:url('./images/calendar/bg_button.gif') 0 0 no-repeat;}
 #schedule .cal_type li a{display:block;width:116px;height:14px;margin-right:7px;padding:5px 0 6px 6px;background-position:0 0;color:#666666;font-weight:bold;border:1px solid #e2e2e2;cursor:pointer;}
-#schedule .cal_type li a.this{;line-height:27px;background-position:0 -30px;color:#fff;}
+#schedule .cal_type li a.this{line-height:27px;background-position:0 -30px;color:#fff;}
 #schedule .cal_type li span{display:block;height:14px;vertical-align:middle;padding-left:25px;line-height:16px;letter-spacing:-0.09em;}
 #schedule .cal_type li a .ctype1{background-position:0 -137px;}
 #schedule .cal_type li a .ctype2{background-position:0 -170px}
