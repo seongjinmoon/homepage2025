@@ -27,7 +27,7 @@
     <p>“회원가입이 완료되었습니다.<em>로그인 후</em> 사용해 주시기 바랍니다.”</p>
     <div class="btn_c">
         <a href="/login/login.do" class="btn-lg spot">로그인</a>
-        <a href="/cmm/main/mainPage.do" class="btn-lg">메인으로</a>
+        <a href="/board/selectList.do" class="btn-lg">메인으로</a>
     </div>
 </div>
 

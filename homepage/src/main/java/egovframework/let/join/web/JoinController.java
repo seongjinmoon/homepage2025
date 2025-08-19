@@ -125,6 +125,7 @@ public class JoinController {
 	//회원가입
 	@RequestMapping(value = "/join/insertMember.do")
 	public String insertMember(@ModelAttribute("searchVO") JoinVO vo,  HttpServletRequest request, ModelMap model) throws Exception{
+		/*
 		if(!EgovStringUtil.isEmpty(vo.getLoginType())) {
 			//일반가입을 제외하고는 ID값은 SNS명 + ID값
 			if(!("normal").equals(vo.getLoginType())){
@@ -134,7 +135,7 @@ public class JoinController {
 				vo.setPasswordCnsr("SNS가입자");
 			}
 		}
-		
+		*/
 		if(joinService.duplicateCheck(vo) > 0) {
 			//SNS 작업 후
 			/*

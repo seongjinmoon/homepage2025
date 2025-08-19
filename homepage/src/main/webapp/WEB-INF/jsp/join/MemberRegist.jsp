@@ -93,6 +93,7 @@
 
 <script>
 $(document).ready(function(){
+	//ID중복체크 작업 시 진행
 	//아이디 중복 검사
 	$("#btn-id-check").click(function(){
 		var emplyrId = $("#emplyrId").val();
