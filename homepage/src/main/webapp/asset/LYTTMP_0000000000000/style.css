@@ -2702,7 +2702,6 @@ ul.section2 li + li {
 }
 
 /* tit_icon_style */
-/*
 .icon1 {
 	position:relative;
 	margin-top:40px;
@@ -2713,6 +2712,7 @@ ul.section2 li + li {
 	color:#000;
 	font-weight:500;
 }
+/*
 .icon1:before {
 	content:"";
 	position:absolute;
@@ -2722,12 +2722,13 @@ ul.section2 li + li {
 	height:4px;
 	background-color:#476694;
 }
+*/
 .icon1:first-child,
 link + .icon1,
 input[type="hidden"] + .icon1 {
 	margin-top:0;
 }
-*/
+
 .icon1_2 {
 	position:relative;
 	display:block;
@@ -6302,7 +6303,7 @@ li .img_order { padding-left:0;margin-top:10px; }
 	}
 	
 	/* site-header */
-	/* .site-header { display:none; } */
+	.site-header { display:none; }
 	.m-site-header { 
 		display:block;
 		position:fixed;

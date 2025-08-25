@@ -4,6 +4,7 @@ import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.join.service.JoinVO;
+import egovframework.let.mail.service.MailService;
 import egovframework.let.member.service.MemberService;
 import egovframework.let.member.service.MemberVO;
 import egovframework.let.utl.fcc.service.EgovNumberUtil;
@@ -36,10 +37,10 @@ public class MemberManageController {
 	
 	@Resource(name = "egovMessageSource")
 	EgovMessageSource egovMessageSource;
-	/*
+	
 	@Resource(name = "mailService")
     private MailService mailService;
-	*/
+	
 	
 	//회원목록
 	@RequestMapping(value = "/admin/member/memberList.do")
@@ -83,7 +84,7 @@ public class MemberManageController {
 		
 		return "/admin/member/MemberRegist";
 	}
-	/*
+	
 	//비밀번호 랜덤 재발급
 	@RequestMapping(value = "/admin/member/changePwRandom.do")
 	public void changePwRandom(@ModelAttribute("searchVO") MemberVO vo, HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -127,6 +128,6 @@ public class MemberManageController {
 		printwriter.flush();
 		printwriter.close();
 	}
-	*/
+	
 	
 }

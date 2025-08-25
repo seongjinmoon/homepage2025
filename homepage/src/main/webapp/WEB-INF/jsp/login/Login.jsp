@@ -32,6 +32,17 @@
 							</span>
 							
                             <button type="submit" class="btn-lg spot p10">로그인</button>
+                            
+                            <div class="btn-cont">
+								<a class="btn-kakao" href="#" data-type="login">
+									<img src="/asset/front/images/common/btn-kakao.png" width="200" alt="카카오 로그인 버튼"/>
+								</a>
+								<%-- 
+								<a class="btn-naver" href="${naverAuthUrl}" data-type="login">
+									<img src="/asset/front/images/common/btn-naver.png" width="180" alt="네이버 로그인 버튼"/>
+								</a>
+								 --%>
+							</div>
 						</fieldset>
 					</form>
 				</div>
@@ -96,7 +107,7 @@ $(document).ready(function(){
 });
 
 //카카오 키 정보 입력
-Kakao.init('8f13bd8d5c0ffc4e3d6e22dba0a3c7b8');
+Kakao.init('a173fcb87879d714ee31c3a6a89212e8');
 
 //카카오SDK 초기화
 Kakao.isInitialized();
