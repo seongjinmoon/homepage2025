@@ -1,6 +1,7 @@
 package egovframework.let.join.web;
 
 import egovframework.com.cmm.EgovMessageSource;
+import egovframework.let.api.naver.service.NaverLoginService;
 import egovframework.let.join.service.JoinService;
 import egovframework.let.join.service.JoinVO;
 import egovframework.let.utl.fcc.service.EgovStringUtil;
@@ -24,10 +25,10 @@ public class JoinController {
 
 	@Resource(name = "joinService")
     private JoinService joinService;
-	/*
+	
 	@Resource(name = "naverLoginService")
     private NaverLoginService naverLoginService;
-	*/
+	
 	@Resource(name = "egovMessageSource")
 	EgovMessageSource egovMessageSource;
 	
@@ -46,13 +47,13 @@ public class JoinController {
 			model.addAttribute("message", "잘못 된 접근입니다.");
 			return "forward:/join/siteUseAgree.do";
 		}
-		/*
+		
 		//Naver
         String domain = request.getServerName();
         String port = Integer.toString(request.getServerPort());
         String naverAuthUrl = naverLoginService.getAuthorizationUrl(session, domain, port);
         model.addAttribute("naverAuthUrl", naverAuthUrl);
-        */
+        
 		return "join/MemberType";
 	}
 		
