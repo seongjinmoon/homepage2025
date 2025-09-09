@@ -54,6 +54,9 @@ public class JoinController {
         String naverAuthUrl = naverLoginService.getAuthorizationUrl(session, domain, port);
         model.addAttribute("naverAuthUrl", naverAuthUrl);
         
+        //네이버로그인 타입체크용
+        request.getSession().setAttribute("naverLoginType", "JOIN");
+        
 		return "join/MemberType";
 	}
 		

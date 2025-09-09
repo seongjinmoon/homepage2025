@@ -48,6 +48,9 @@ public class LoginController {
         String naverAuthUrl = naverLoginService.getAuthorizationUrl(session, domain, port);
         model.addAttribute("naverAuthUrl", naverAuthUrl);
         
+        //네이버로그인 타입체크용
+        request.getSession().setAttribute("naverLoginType", "LOGIN");
+        
 		return "/login/Login";
 	}
 		
@@ -102,31 +105,49 @@ public class LoginController {
 		loginVO.setUserSe("USR");
 		
 		LoginVO resultVO = loginService.actionLogin(loginVO);
-		//로그인 값이 없으면 회원가입처리
-		if (resultVO != null && resultVO.getId() != null && !resultVO.getId().equals("")){
-			request.getSession().setAttribute("LoginVO", resultVO);
-			return "forward:/board/selectList.do";
-		} else {
-			//일반가입을 제외하고는 ID값은 SNS명 + ID값
-			JoinVO joinVO = new JoinVO();
-			joinVO.setEmplyrId(loginVO.getId());
-			joinVO.setUserNm(result.get("name").toString());
-			if(result.get("email") != null) {
-				joinVO.setEmailAdres(result.get("email").toString());				
+		String naverLoginType = (String) request.getSession().getAttribute("naverLoginType");
+		
+		//회원가입인 경우
+		if("JOIN".equals(naverLoginType)) {
+			//로그인 값이 없으면 회원가입처리
+			if (resultVO != null && resultVO.getId() != null && !resultVO.getId().equals("")){
+				model.addAttribute("loginMessage", egovMessageSource.getMessage("fail.duplicate.member")); //이미 사용중인 ID입니다.
+				return "forward:/login/login.do";
+			} else {
+				//일반가입을 제외하고는 ID값은 SNS명 + ID값
+				JoinVO joinVO = new JoinVO();
+				joinVO.setEmplyrId(loginVO.getId());
+				joinVO.setUserNm(result.get("name").toString());
+				if(result.get("email") != null) {
+					joinVO.setEmailAdres(result.get("email").toString());				
+				}
+				joinVO.setPassword("");
+				joinVO.setPasswordHint("SNS가입자");
+				joinVO.setPasswordCnsr("SNS가입자");
+				
+				if(result.get("mobile") != null) {
+					System.out.println("mobile : " + result.get("mobile").toString());
+				}
+				
+				joinService.insertJoin(joinVO);
+				model.addAttribute("loginMessage", "회원가입이 완료되었습니다.");
+				
+				return "/join/MemberComplete";
 			}
-			joinVO.setPassword("");
-			joinVO.setPasswordHint("SNS가입자");
-			joinVO.setPasswordCnsr("SNS가입자");
-			
-			if(result.get("mobile") != null) {
-				System.out.println("mobile : " + result.get("mobile").toString());
+		//로그인인 경우	
+		}else if("LOGIN".equals(naverLoginType)) {
+			if (resultVO != null && resultVO.getId() != null && !resultVO.getId().equals("")){
+				request.getSession().setAttribute("LoginVO", resultVO);
+				return "forward:/board/selectList.do";
+			}else {
+				model.addAttribute("loginMessage", "등록된 회원이 없습니다.");
+				return "forward:/login/login.do";
 			}
-			
-			joinService.insertJoin(joinVO);
-			model.addAttribute("loginMessage", "회원가입이 완료되었습니다.");
-			
-			return "/join/MemberComplete";
+		}else {
+			model.addAttribute("loginMessage", "비정상적인 접근입니다.");
+			return "forward:/login/login.do";
 		}
+		
 	}
 	
 
