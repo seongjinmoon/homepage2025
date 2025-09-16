@@ -76,11 +76,9 @@
 						<li>
 							<a href="/admin/member/memberList.do">회원관리</a>	
 						</li>
-						<%--
 						<li>
 							<a href="/admin/rsv/rsvSelectList.do">예약관리</a>	
 						</li>
-						--%>
 					</c:if>
 				</ul>
 	        </nav>
