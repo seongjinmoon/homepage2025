@@ -26,16 +26,16 @@
 	
 	<div id="calendar">
 		<table class="mcal_chart">
-			<caption><c:out value="${currYear }"/>년 <fmt:formatNumber value="${currMonth }" pattern="00"/>월 ${tableName} 신청 일정</caption>
+			<caption><c:out value="${currYear }"/>년 <fmt:formatNumber value="${currMonth }" pattern="00"/>월 신청 일정</caption>
 			<thead>
 			<tr>
-				<th class="sun" scope="col">일</th>
+				<th scope="col">일</th>
 				<th scope="col">월</th>
 				<th scope="col">화</th>
 				<th scope="col">수</th>
 				<th scope="col">목</th>
 				<th scope="col">금</th>
-				<th class="sat" scope="col">토</th>
+				<th scope="col">토</th>
 			</tr>
 			</thead>
 			<tbody>

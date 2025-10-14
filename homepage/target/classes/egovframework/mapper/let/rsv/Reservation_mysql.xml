@@ -40,6 +40,7 @@
 			, A.USE_AT
 			, A.FRST_REGIST_PNTTM  
 			, A.FRST_REGISTER_ID
+			<!-- 사용자 쪽 작업 시 사용 -->
 			, (SELECT 
 					COUNT(*) 
 				FROM RESVEREQSTINFO B
@@ -107,6 +108,7 @@
 			, A.USE_AT
 			, A.FRST_REGIST_PNTTM  
 			, A.FRST_REGISTER_ID
+			<!-- 사용자 쪽 작업 시 사용 -->
 			, (SELECT 
 					COUNT(*) 
 				FROM RESVEREQSTINFO B
