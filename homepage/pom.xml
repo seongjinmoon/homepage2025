@@ -269,6 +269,13 @@
 		    <version>4.2.2</version>
 		</dependency>
 		<!-- //네이버 로그인 -->
+		
+		<!-- 엑셀다운로드 poi포함 됨 -->
+		<dependency>
+			<groupId>org.egovframe.rte</groupId>
+			<artifactId>org.egovframe.rte.fdl.excel</artifactId>
+			<version>${org.egovframe.rte.version}</version>
+		</dependency>
 	</dependencies>
 
     <build>

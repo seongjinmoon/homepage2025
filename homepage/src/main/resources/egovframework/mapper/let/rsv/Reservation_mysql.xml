@@ -41,10 +41,12 @@
 			, A.FRST_REGIST_PNTTM  
 			, A.FRST_REGISTER_ID
 			<!-- 사용자 쪽 작업 시 사용 -->
+			<!-- 
 			, (SELECT 
 					COUNT(*) 
 				FROM RESVEREQSTINFO B
 				WHERE A.RESVE_ID = B.RESVE_ID) AS APPLY_CNT
+			 -->	
 			<![CDATA[
 			, CASE WHEN DATE_FORMAT(NOW(), '%Y-%m-%d') < A.REQST_BGNDE THEN 1
 				   WHEN DATE_FORMAT(NOW(), '%Y-%m-%d') >= A.REQST_BGNDE AND DATE_FORMAT(NOW(), '%Y-%m-%d') <= A.REQST_ENDDE THEN 2
@@ -53,11 +55,13 @@
 			  	   ELSE 5
 			  END AS APPLY_STATUS
 			 ]]>
+			 <!-- 
 			 , (SELECT 
 					COUNT(*) 
 				FROM RESVEREQSTINFO B
 				WHERE A.RESVE_ID = B.RESVE_ID
 					AND B.CONFM_SE_CODE = 'O') AS APPLY_F_CNT
+			 -->
 		FROM RESVEINFO A
 		<include refid="selectReservationListWhere"></include>
 		ORDER BY A.FRST_REGIST_PNTTM DESC
@@ -109,10 +113,6 @@
 			, A.FRST_REGIST_PNTTM  
 			, A.FRST_REGISTER_ID
 			<!-- 사용자 쪽 작업 시 사용 -->
-			, (SELECT 
-					COUNT(*) 
-				FROM RESVEREQSTINFO B
-				WHERE A.RESVE_ID = B.RESVE_ID) AS APPLY_CNT
 			<![CDATA[
 			, CASE WHEN DATE_FORMAT(NOW(), '%Y-%m-%d') < A.REQST_BGNDE THEN 1
 				   WHEN DATE_FORMAT(NOW(), '%Y-%m-%d') >= A.REQST_BGNDE AND DATE_FORMAT(NOW(), '%Y-%m-%d') <= A.REQST_ENDDE THEN 2
@@ -121,6 +121,11 @@
 			  	   ELSE 5
 			  END AS APPLY_STATUS
 			 ]]>
+			 <!-- 신청자 신청여부 체크하는데 사용 -->
+			 , (SELECT 
+					COUNT(*) 
+				FROM RESVEREQSTINFO B
+				WHERE A.RESVE_ID = B.RESVE_ID) AS APPLY_CNT
 			 , (SELECT 
 					COUNT(*) 
 				FROM RESVEREQSTINFO B

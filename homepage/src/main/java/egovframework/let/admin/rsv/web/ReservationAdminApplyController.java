@@ -133,14 +133,14 @@ public class ReservationAdminApplyController {
 	    return "forward:/admin/rsv/selectApplyList.do";
 	}
 	
-	/*
+	
 	//예약자정보 엑셀 다운로드
 	@RequestMapping(value = "/admin/rsv/excel.do")
 	public ModelAndView excel(@ModelAttribute("searchVO") ReservationApplyVO searchVO,  HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>(); 
     	List<String> columMap = new ArrayList<String>();
     	List<Object> valueMap = new ArrayList<Object>();
-    	String fileName = "";
+    	//String fileName = "";
     	
     	columMap.add("번호");
  		columMap.add("신청자명");
@@ -149,8 +149,8 @@ public class ReservationAdminApplyController {
  		columMap.add("신청일");
 		
  		map.put("title", "예약신청현황");
-		fileName = EgovStringUtil.getConvertFileName(request, "예약신청현황.xlxs");
- 		//fileName = "예약신청현황.xlxs";
+		//fileName = EgovStringUtil.getConvertFileName(request, "예약신청현황.xlxs");
+ 		//fileName = "apply.xlxs";
  		
 		//관리자
 		searchVO.setMngAt("Y");
@@ -177,9 +177,9 @@ public class ReservationAdminApplyController {
 		map.put("columMap", columMap);
 		map.put("valueMap", valueMap);
 		
-		response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+		//response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
 		
 		return new ModelAndView("excelDownloadView", "dataMap", map);
 	}
-	*/
+	
 }

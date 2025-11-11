@@ -69,6 +69,7 @@
                    		<c:when test="${result.applyStatus eq '4'}"><a href="#" class="btn btn-status" data-status="${result.applyStatus}">운영중</a></c:when>
                    		<c:otherwise><a href="#" class="btn btn-status" data-status="${result.applyStatus}">종료</a></c:otherwise>
                    	</c:choose>
+                   	<%-- 달력으로 작업 시
                    	<c:choose>
                    		<c:when test="${param.listType eq 'calendar'}">
                    			<c:url var="listUrl" value="/rsv/selectCalendar.do">
@@ -79,6 +80,8 @@
                    			<c:url var="listUrl" value="/rsv/selectList.do${_BASE_PARAM}"/>
                    		</c:otherwise>
                    	</c:choose>
+                   	 --%>
+                   	<c:url var="listUrl" value="/rsv/selectList.do${_BASE_PARAM}"/>
 				    <a href="${listUrl}" class="btn">목록</a>
 				</div>
 			</div>

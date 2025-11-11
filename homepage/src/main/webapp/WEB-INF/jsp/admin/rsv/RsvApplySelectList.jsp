@@ -25,6 +25,7 @@
 				<div class="total">
 					총 예약 수 
 					<strong><c:out value="${fn:length(resultList)}"/></strong>건
+					<%-- 
 					<c:url var="excelUrl" value="/admin/rsv/selectApplyList.do">
 						<c:param name="resveId" value="${param.resveId}"/>
 						<c:param name="excelAt" value="Y"/>
@@ -35,6 +36,7 @@
 						<c:param name="resveId" value="${param.resveId}"/>
 					</c:url>
 					<a href="${excelUrl}" class="btn">JAVA 엑셀 다운로드</a>
+					 --%>
 				</div>	
 		        <div class="bss_list">
 		            <table class="list_table">
