@@ -13,6 +13,7 @@ import egovframework.com.cmm.service.EgovFileMngUtil;
 import egovframework.com.cmm.service.EgovProperties;
 import egovframework.com.cmm.service.FileVO;
 import egovframework.com.cmm.service.Globals;
+import egovframework.com.cmm.service.JsonResponse;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.rsv.service.ReservationApplyService;
 import egovframework.let.rsv.service.ReservationApplyVO;
@@ -182,4 +183,45 @@ public class ReservationAdminApplyController {
 		return new ModelAndView("excelDownloadView", "dataMap", map);
 	}
 	
+	//엑셀업로드 
+    @RequestMapping(value="/admin/rsv/excelUpload.json",method=RequestMethod.POST)
+    public @ResponseBody JsonResponse excelUpload(@ModelAttribute ReservationApplyVO searchVO, ModelMap model,MultipartHttpServletRequest multiRequest,HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	JsonResponse res = new JsonResponse();
+    	res.setSuccess(true);
+    	
+    	try {
+    		List<FileVO> result = null;
+			final Map<String, MultipartFile> files = multiRequest.getFileMap();
+			if (!files.isEmpty()) {
+				result = fileUtil.parseFileInf(files, "TEMP_", 0, null, "rsvFileStorePath");
+				Map<String, Object> resultMap = new HashMap<>();
+					
+				for(FileVO file : result){
+					if("xls".equals(file.getFileExtsn())||"xlsx".equals(file.getFileExtsn())){
+						searchVO.setCreatIp(request.getRemoteAddr());
+						resultMap = reservationApplyService.excelUpload(file, searchVO);
+						if(!(Boolean)resultMap.get("success")){
+							res.setMessage(String.valueOf(resultMap.get("msg")));
+							ArrayList resultList = (ArrayList) resultMap.get("resultList");
+							res.setData(resultList);
+							res.setSuccess(false);
+						}else if((Boolean)resultMap.get("success")){
+							res.setMessage(String.valueOf(resultMap.get("msg")));
+						}
+					}
+				}
+			}
+    	}catch(DataAccessException e) {
+    		res.setMessage(e.getLocalizedMessage());
+    	}
+    	return res;
+    }
+	
+    @RequestMapping(value="/test.json")
+    public @ResponseBody HashMap<String, String> test(@ModelAttribute ReservationApplyVO searchVO, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	HashMap<String, String> res = new HashMap<>();
+    	res.put("result", "ok");
+    	
+    	return res;
+    }
 }

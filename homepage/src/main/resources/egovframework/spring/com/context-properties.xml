@@ -23,6 +23,9 @@
 	        	<entry key="mail.gmailUser" value="sj1004class@gmail.com"/>
 	        	<entry key="mail.gmailUserName" value="한국폴리텍대학"/>
 	        	<entry key="mail.gmailPassword" value="hbeytesdiyvmicxn"/>
+	        	
+	        	<!-- 예약자 업로드 물리경로 -->
+	        	<entry key="rsvFileStorePath" value="${Globals.File}/upload/rsv"/>
 	        </map>
 		</property>
 	</bean>

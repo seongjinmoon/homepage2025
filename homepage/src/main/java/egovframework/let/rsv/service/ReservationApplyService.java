@@ -34,4 +34,7 @@ public interface ReservationApplyService {
 	//예약자 승인처리
 	public void updateReservationConfirm(ReservationApplyVO vo) throws Exception;
 	
+	//예약자 엑셀 업로드
+	public Map<String, Object> excelUpload(FileVO file, ReservationApplyVO vo) throws Exception;
+	
 }

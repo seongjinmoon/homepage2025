@@ -18,20 +18,21 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
-import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
-import org.egovframe.rte.fdl.property.EgovPropertyService;
-import org.egovframe.rte.psl.dataaccess.util.EgovMap;
-/*
-import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.CellValue;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-*/
+import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
+import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
+import org.egovframe.rte.fdl.property.EgovPropertyService;
+import org.egovframe.rte.psl.dataaccess.util.EgovMap;
+import org.apache.poi.ss.usermodel.DateUtil;
+
 import org.springframework.stereotype.Service;
 
 
@@ -46,10 +47,10 @@ public class ReservationApplyServiceImpl extends EgovAbstractServiceImpl impleme
     
     @Resource(name = "egovReqIdGnrService")
     private EgovIdGnrService idgenService;
-    /*
+    
     @Resource(name = "egovReqTempIdGnrService")
     private EgovIdGnrService idgenTempService;
-    */
+    
     @Resource(name = "reservationService")
     private ReservationService reservationService;
     
@@ -131,5 +132,180 @@ public class ReservationApplyServiceImpl extends EgovAbstractServiceImpl impleme
 		reservationApplyDAO.updateReservationConfirm(vo);
 	}
 	
-	
+	//예약자 엑셀 업로드
+	public Map<String, Object> excelUpload(FileVO fileVO, ReservationApplyVO vo) throws Exception{
+		String fileExt = fileVO.getFileExtsn();
+		
+		FileInputStream stream = new FileInputStream(fileVO.getFileStreCours() +"/"+ fileVO.getStreFileNm());
+	    File file = new File(fileVO.getFileStreCours() +"/"+ fileVO.getStreFileNm());
+		
+	    Boolean result = true;
+	    Boolean totResult = true;
+	    String resultMsg = "";
+	    List<EgovMap> resultList = new ArrayList<EgovMap>();
+	    List<String> duplList = new ArrayList<String>();
+	    
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		//기존 예약자
+		//SQL페이지 때문에 INTEGER MAX 사용
+		vo.setFirstIndex(0);
+		vo.setRecordCountPerPage(Integer.MAX_VALUE);
+		List<EgovMap> existUserList = reservationApplyDAO.selectReservationApplyList(vo);
+		
+		//엑셀Id
+		String tempId = idgenTempService.getNextStringId();
+		vo.setReqsttempId(tempId);
+		
+		try {
+	    	Workbook wb = null;
+	    	if("XLS".equals(fileExt.toUpperCase())) {
+	    		wb = WorkbookFactory.create(stream);
+	    	} else if("XLSX".equals(fileExt.toUpperCase())) {
+	    		wb = WorkbookFactory.create(stream);
+	    	}
+	    	FormulaEvaluator eval = wb.getCreationHelper().createFormulaEvaluator();
+	    	
+	    	//int sheetNum = wb.getNumberOfSheets(); //시트갯수 가져오기
+	    	if(wb != null) {
+		    	Sheet sheet = wb.getSheetAt(0);//첫번째 시트
+		    	int rows = sheet.getPhysicalNumberOfRows(); //행 갯수 가져오기
+	            for(int r = 1; r < rows; r++){ //row 루프 
+	            	Row row = sheet.getRow(r); //row 가져오기
+	                if(row != null) {
+		                for(int c = 0; c < 4; c++) {	//cell 가져오기
+		                	Cell cell = row.getCell(c);
+
+		                	result = true;
+		                	if(cell != null) {
+			                	String value = "";
+			                	 CellValue evaluated = eval.evaluate(cell);
+			                	
+			                	//셀 타입에 맞춰서 값 호출
+			                	switch(evaluated.getCellType()) {
+				                	case NUMERIC:
+				                		if (!EgovStringUtil.isEmpty(cell.toString())) {
+				                            if (DateUtil.isCellDateFormatted(cell)) {
+				                                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				                                value = formatter.format(cell.getDateCellValue());
+				                            } else {
+				                                value = "" + (long) cell.getNumericCellValue();
+				                            }
+				                        }
+				                        break;
+				                	case STRING:
+				                		value = "" + cell.getRichStringCellValue();
+				                		break;
+				                	case BLANK:
+				                		value = "";
+				                		break;
+				                	case ERROR:
+				                		value = "" + cell.getErrorCellValue();
+				                		break;
+				                	case BOOLEAN:
+				                		value = "" + cell.getBooleanCellValue();
+				                		break;
+				                	default:
+				                		break;
+			                	}
+			                	
+			                	if(!EgovStringUtil.isEmpty(value)) {
+			                		value = value.trim();
+			                	}
+			                	
+			                	switch(c) {
+			                		case 0 :
+			                			vo.setUserId(value);//신청자ID
+			                			break;
+			                		case 1 : 
+			                			vo.setChargerNm(value);//신청자명
+			                			break;
+			                		case 2 : 
+			                			vo.setTelno(value);//연락처
+			                			break;
+			                		case 3 : 
+			                			vo.setEmail(value);//이메일
+			                			break;
+					                default : break;
+			                	}
+		                	}
+		                }
+		                
+		                //빈 행은 제외
+		                if(!EgovStringUtil.isEmpty(vo.getUserId())){
+		                	List<String> existIdList = new ArrayList<>();
+			                //기존유저 중복 체크
+			                if(existUserList != null){ 
+			                	
+			                	System.out.println(existUserList.size() + "개");
+			                	
+					            for(EgovMap cu : existUserList){
+					            	existIdList.add(cu.get("frstRegisterId").toString());
+					            }
+					            
+							    if(existIdList.contains(vo.getUserId())) {
+							    	EgovMap userMap = new EgovMap();
+							    	userMap.put("userId", vo.getUserId());
+							    	userMap.put("message", "이미 등록된 ID입니다.");
+							    	resultList.add(userMap);
+							    	
+							    	result = false;
+							    	totResult = false;
+							    }
+				            }
+			                //엑셀 중복 체크
+			                if(result && duplList.contains(vo.getUserId())) {
+			                	EgovMap userMap = new EgovMap();
+						    	userMap.put("userId", vo.getUserId());
+						    	userMap.put("message", "엑셀에 중복으로 입력되었습니다.");
+						    	resultList.add(userMap);
+						    	
+						    	result = false;
+						    	totResult = false;
+			                }
+		            		 
+			                if(result && !EgovStringUtil.isEmpty(vo.getUserId())){
+			                	String id = idgenService.getNextStringId();
+			      				vo.setReqstId(id);
+			      				reservationApplyDAO.insertReservationApplyTemp(vo);
+		                		
+		                		duplList.add(vo.getUserId());
+		                	}
+		                }
+	                }
+	            }
+	            
+	            List<EgovMap> tempList = reservationApplyDAO.selectReservationApplyTemp(vo);
+	            if(tempList.size() > 0){
+	            	//일괄 등록
+	            	int insertCnt = reservationApplyDAO.insertReservationApplyTempAll(vo);
+	            	if(insertCnt > 0) {
+	            		resultMsg = Integer.toString(insertCnt) + "명 등록완료"; 
+	            	}
+	            }
+	    	}
+	    } catch(FileNotFoundException e) {
+	    	result = false;
+	    	resultMsg="문제가 발생하여 완료하지 못하였습니다.";
+	    	e.printStackTrace(); 
+	    } catch(InvalidFormatException e) {
+	    	result = false;
+	    	resultMsg="문제가 발생하여 완료하지 못하였습니다.";
+	    	e.printStackTrace(); 
+	    } catch(Exception e){
+	    	result = false;
+	    	resultMsg="문제가 발생하여 완료하지 못하였습니다.";
+        	e.printStackTrace(); 
+        } finally {
+        	//임시 데이터 삭제
+        	reservationApplyDAO.deleteReservationApplyTemp(vo);
+        	//file.delete(); -- 필요할 수 있어서 삭제는 안 함
+        }
+    	
+	    map.put("success", totResult);
+	    map.put("msg", resultMsg);
+	    map.put("resultList", resultList);
+	    
+		return map;
+	}
 }

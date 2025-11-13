@@ -83,8 +83,8 @@
         <property name="maxInMemorySize" value="100000000" />
     </bean>
     <!-- choose one from above and alias it to the name Spring expects -->
-    <alias name="local.MultiCommonsMultipartResolver" alias="filterMultipartResolver" />
-    <!-- <alias name="spring.RegularCommonsMultipartResolver" alias="multipartResolver" /> -->
-    
+    <!-- <alias name="local.MultiCommonsMultipartResolver" alias="filterMultipartResolver" /> -->
+    <!-- (예약)엑셀업로드 시 해당 부분 주석처리가 되어져 있으면 안 됨 -->
+    <alias name="spring.RegularCommonsMultipartResolver" alias="multipartResolver" />
         
 </beans>

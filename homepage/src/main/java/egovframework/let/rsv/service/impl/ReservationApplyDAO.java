@@ -70,8 +70,8 @@ public class ReservationApplyDAO extends EgovAbstractMapper {
   	}
   	
   	//임시예약자 예약자로 일괄등록
-  	void insertReservationApplyTempAll(ReservationApplyVO vo) throws Exception{
-  		insert("reservationApplyDAO.insertReservationApplyTempAll", vo);
+  	int insertReservationApplyTempAll(ReservationApplyVO vo) throws Exception{
+  		return insert("reservationApplyDAO.insertReservationApplyTempAll", vo);
   	}
 		
 }
